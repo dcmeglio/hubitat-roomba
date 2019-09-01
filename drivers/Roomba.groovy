@@ -2,6 +2,7 @@ metadata {
     definition (name: "Roomba", namespace: "roomba", author: "dmeglio@gmail.com") {
 		capability "Battery"
         capability "Consumable"
+		capability "Actuator"
         
         attribute "cleanStatus", "string"
         
