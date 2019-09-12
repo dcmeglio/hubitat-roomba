@@ -63,8 +63,8 @@ def createChildDevices() {
 
 	if (result && result.data)
     {
-        if (!getChildDevice("roomba:"+result.data.hwPartsRev.navSerialNo))
-            addChildDevice("roomba", "Roomba", "roomba:" + result.data.hwPartsRev.navSerialNo, 1234, ["name": result.data.name, isComponent: false])
+        if (!getChildDevice("roomba:"+result.data.name))
+            addChildDevice("roomba", "Roomba", "roomba:" + result.data.name, 1234, ["name": result.data.name, isComponent: false])
     }
 }
 
@@ -75,7 +75,7 @@ def cleanupChildDevices()
 	{
 		def deviceId = device.deviceNetworkId.replace("roomba:","")
 		
-        if (result.data.hwPartsRev.navSerialNo != deviceId)
+        if (result.data.name != deviceId)
             deleteChildDevice(device.deviceNetworkId)
 	}
 }
@@ -85,7 +85,7 @@ def updateDevices() {
     
     if (result && result.data)
     {
-        def device = getChildDevice("roomba:" + result.data.hwPartsRev.navSerialNo)
+        def device = getChildDevice("roomba:" + result.data.name)
         
         device.sendEvent(name: "battery", value: result.data.batPct)
         if (!result.data.bin.present)
